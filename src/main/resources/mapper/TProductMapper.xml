@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.secondhand.mapper.TProductMapper">
+    <select id="selectSomeNewProduct" resultType="com.example.secondhand.entity.TProduct" parameterType="int">
+        SELECT * FROM t_product
+        ORDER BY create_time,id desc
+        LIMIT #{countNum}
+    </select>
+</mapper>

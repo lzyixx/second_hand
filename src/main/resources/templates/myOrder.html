@@ -1,0 +1,111 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head th:replace="_fragments :: head(~{::title})">
+    <!-- Meta Data -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>My Account</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+</head>
+
+<body class="sticky-header bg-accent">
+    <!--[if lte IE 9]>
+    <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+  	<![endif]-->
+    <!-- ScrollUp Start Here -->
+    <a href="#wrapper" data-type="section-switch" class="scrollup">
+        <i class="fas fa-angle-double-up"></i>
+    </a>
+    <!-- ScrollUp End Here -->
+    <!-- Preloader Start Here -->
+    <div id="preloader"></div>
+    <!-- Preloader End Here -->
+    <div id="wrapper" class="wrapper">
+
+        <!--=====================================-->
+        <!--=            Header Start           =-->
+        <!--=====================================-->
+        <nav th:replace="_fragments :: menu(0)"></nav>
+        <!--=====================================-->
+        <!--=        Account Page Start      	=-->
+        <!--=====================================-->
+        <section class="section-padding-equal-70">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="tab-content">
+                            <div>
+                                <div class="myaccount-payment light-shadow-bg">
+                                    <div class="light-box-content">
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered table-striped">
+                                                <thead>
+                                                <tr>
+                                                    <th>Order ID</th>
+                                                    <th>Product Name</th>
+                                                    <th>Total Price</th>
+                                                    <th>Date</th>
+                                                    <th>Order State</th>
+                                                    <th>Operate</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr th:each="order:${orderList}">
+                                                    <td th:text="${order.id}"></td>
+                                                    <td><a th:href="@{/productDetail?id={id}&canBuy=0(id=${order.productId})}" th:text="${order.product.name}">2125</a></td>
+                                                    <td>
+                                                        <div class="price-amount">
+                                                            <span class="currency-symbol" th:text="'$ '+${order.totalPrice}">$</span>
+                                                        </div>
+                                                    </td>
+                                                    <td th:text="${#dates.format(order.createTime,'yyyy-MM-dd HH:mm:ss')}"></td>
+                                                    <td th:if="${order.confirmStatus==1}">received</td>
+                                                    <td th:if="${order.confirmStatus!=1}">unreceive</td>
+                                                    <td>
+                                                        <a th:if="${order.confirmStatus!=1}" th:href="@{/receiveProduct?id={id}(id=${order.id})}">To receive</a>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="pagination-layout1">
+                                    <div class="btn-prev">
+                                        <a th:if="${page>1}" th:href="@{/myOrder?page={page}&keyword={keyword}(page=${page-1},keyword=${keyword})}"><i class="fas fa-angle-double-left"></i>Previous</a>
+                                    </div>
+                                    <div class="page-number">
+                                        <a th:each="i:${#numbers.sequence(1,pages)}" th:href="@{/myOrder?page={page}&keyword={keyword}(page=${i},keyword=${keyword})}" th:class="${page==i?'active':''}" th:text="${i}"></a>
+                                    </div>
+                                    <div class="btn-next">
+                                        <a th:if="${page<pages}" th:href="@{/myOrder?page={page}&keyword={keyword}(page=${page+1},keyword=${keyword})}">Next<i class="fas fa-angle-double-right"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--=====================================-->
+        <!--=       Footer Start           	=-->
+        <!--=====================================-->
+        <footer th:replace="_fragments:: footer"></footer>
+    </div>
+    <th:block th:replace="_fragments :: script">
+    </th:block>
+
+</body>
+<script>
+    let msg="[[${message}]]"
+    $(function () {
+        if(msg!=null&&msg!=''){
+            alert(msg)
+        }
+    })
+</script>
+</html>

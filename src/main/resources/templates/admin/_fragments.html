@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:fragment="head(title)">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title th:replace="${title}">Back-end</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css">
+  <link rel="stylesheet" href="../../static/lib/editormd/css/editormd.min.css" th:href="@{/lib/editormd/css/editormd.min.css}">
+  <link rel="stylesheet" href="../static/css/me.css" th:href="@{/css/me.css}">
+  <link rel="stylesheet" th:href="@{/css/jquery.pagination.css}">
+  <link rel="stylesheet" th:href="@{/layui/css/layui.css}">
+</head>
+<body>
+
+<!--导航-->
+<nav th:fragment="menu(n)" class="ui inverted attached segment m-padded-tb-mini m-shadow-small" >
+  <div class="ui container">
+    <div class="ui inverted secondary stackable menu">
+      <h2 class="ui teal header item">Back-end</h2>
+      <a href="#" th:href="@{/admin/users}" class=" m-item item m-mobile-hide" th:classappend="${n==1} ? 'active'">User</a>
+      <a href="#" th:href="@{/admin/types}" class=" m-item item m-mobile-hide" th:classappend="${n==2} ? 'active'">Classification</a>
+      <a href="#" th:href="@{/admin/products}" class="m-item item m-mobile-hide" th:classappend="${n==3} ? 'active'">Product</a>
+      <a href="#" th:href="@{/admin/orders}" class="m-item item m-mobile-hide" th:classappend="${n==4} ? 'active'">Order</a>
+      <div class="right m-item m-mobile-hide menu">
+        <div class="ui dropdown  item">
+          <div class="text">
+<!--            <img class="ui avatar image" th:src="${session.user.hpic} != null ? ${session.user.hpic} : '/images/avatar.png'">-->
+            <span th:text="${session.user.nickname}">Nickname</span>
+          </div>
+          <i class="dropdown icon"></i>
+          <div class="menu">
+            <a href="#" th:href="@{/admin/logout}" class="item">Logout</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <a href="#" class="ui menu toggle black icon button m-right-top m-mobile-show">
+    <i class="sidebar icon"></i>
+  </a>
+</nav>
+
+<!--导航-->
+
+
+
+<!--底部footer-->
+<footer th:fragment="footer">
+
+</footer>
+
+<th:block th:fragment="script">
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>
+  <script src="../../static/lib/editormd/editormd.min.js" th:src="@{/lib/editormd/editormd.min.js}"></script>
+  <script type="text/javascript" th:src="@{/js/jquery.pagination.js}"></script>
+  <script th:src="@{/layui/layui.js}" charset="utf-8"></script>
+</th:block>
+
+</body>
+</html>

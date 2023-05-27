@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:fragment="head(title)">
+    <!-- Meta Data -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Home</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/x-icon" th:href="@{/media/favicon.png}">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" th:href="@{/dependencies/bootstrap/css/bootstrap.min.css}">
+    <!-- FontAwesome CSS -->
+    <link rel="stylesheet" th:href="@{/dependencies/fontawesome/css/all.min.css}">
+    <!-- Flaticon CSS -->
+    <link rel="stylesheet" th:href="@{/dependencies/flaticon/flaticon.css}">
+    <!-- Owl Carousel CSS -->
+    <link rel="stylesheet" th:href="@{/dependencies/owl.carousel/css/owl.carousel.min.css}">
+    <link rel="stylesheet" th:href="@{/dependencies/owl.carousel/css/owl.theme.default.min.css}">
+    <!-- Animated Headlines CSS -->
+    <link rel="stylesheet" th:href="@{/dependencies/jquery-animated-headlines/css/jquery.animatedheadline.css}">
+    <!-- Magnific Popup CSS -->
+    <link rel="stylesheet" th:href="@{/dependencies/magnific-popup/css/magnific-popup.css}">
+    <!-- Animate CSS -->
+    <link rel="stylesheet" th:href="@{/dependencies/animate.css/css/animate.min.css}">
+    <!-- Meanmenu CSS -->
+    <link rel="stylesheet" th:href="@{/dependencies/meanmenu/css/meanmenu.min.css}">
+    <!-- Site Stylesheet -->
+    <link rel="stylesheet" th:href="@{/assets/css/app.css}">
+    <link rel="stylesheet" th:href="@{/css/comment.css}">
+    <!-- Google Web Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Nunito:300,300i,400,400i,600,600i,700,700i,800,800i&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i,900,900i&display=swap" rel="stylesheet">
+
+  </head>
+<body>
+
+
+<!--导航-->
+<nav th:fragment="menu(n)" class="ui inverted attached segment m-padded-tb-mini m-shadow-small" >
+  <header class="header">
+    <div id="rt-sticky-placeholder"></div>
+    <div id="header-menu" class="header-menu menu-layout1 pd-x-20">
+      <div class="container-fluid">
+        <div class="row d-flex align-items-center">
+          <div class="col-lg-2">
+            <div class="logo-area">
+              <a th:href="@{/}" class="temp-logo">
+                <h2 style="color: #ffbb62">SecondWave</h2>
+              </a>
+              <a th:href="@{/}" class="sticky-logo">
+                  <h2 style="color: black">SecondWave</h2>
+              </a>
+            </div>
+          </div>
+          <div class="col-lg-7 d-flex justify-content-end">
+            <nav id="dropdown" class="template-main-menu">
+              <ul>
+                <li>
+                  <a href="#" class="has-dropdown"  style="color: #ffbb62">All Products</a>
+                  <ul class="sub-menu">
+                    <li>
+                      <a th:href="@{/listProducts}"  style="color: #ffbb62">All Products</a>
+                    </li>
+                  </ul>
+                </li>
+                  <li>
+                      <a th:href="@{/admin}" style="color: #ffbb62">Admin</a>
+                  </li>
+                  <li th:if="${session.user!=null}">
+                      <a style="color: #ffbb62" href="#" class="has-dropdown" th:text="${session.user!=null?session.user.nickname:''}"></a>
+                      <ul class="sub-menu">
+                          <li>
+                              <a th:href="@{/myInfo}" style="color: #ffbb62">myInfo</a>
+                          </li>
+                          <li>
+                              <a th:href="@{/myListing}" style="color: #ffbb62">myListing</a>
+                          </li>
+                          <li>
+                              <a th:href="@{/myOrder}" style="color: #ffbb62">myOrder</a>
+                          </li>
+                          <li>
+                              <a th:href="@{/logout}" style="color: #ffbb62">Login Out</a>
+                          </li>
+                      </ul>
+                  </li>
+              </ul>
+            </nav>
+          </div>
+          <div class="col-lg-3 d-flex justify-content-end">
+            <div class="header-action-layout1">
+              <ul>
+                <li class="header-login-icon">
+                  <a th:href="@{/login}" style="color: #ffbb62" class="color-light" data-toggle="tooltip" data-placement="top" title="Login/Register">
+                    <i class="far fa-user"></i>
+                  </a>
+                </li>
+                <li class="header-btn">
+                  <a th:href="@{/products/input}" class="item-btn"><i class="fas fa-plus"></i>Post Your Product</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+</nav>
+
+
+
+<!--底部footer-->
+<footer th:fragment="footer">
+        <div class="footer-top-wrap">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="footer-box-layout1">
+                            <div class="footer-logo">
+                                <h2 style="color: white">SecondWave</h2>
+                            </div>
+                            <p>SecondWave is a second-hand shopping system
+                                that I personally developed, with a wide variety of options.</p>
+                            <ul class="footer-social">
+                                <li><a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
+                                <li><a href="#" target="_blank"><i class="fab fa-twitter"></i></a></li>
+                                <li><a href="#" target="_blank"><i class="fab fa-google-plus-g"></i></a></li>
+                                <li><a href="#" target="_blank"><i class="fab fa-linkedin-in"></i></a></li>
+                                <li><a href="#" target="_blank"><i class="fab fa-pinterest"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="footer-box-layout1">
+                            <div class="footer-title">
+                                <h3>How to Sell Fast</h3>
+                            </div>
+                            <div class="footer-menu-box">
+                                <ul>
+                                    <li><a href="#">Selling Tips</a></li>
+                                    <li><a href="#">Buy and Sell Quickly</a></li>
+                                    <li><a href="#">Membership</a></li>
+                                    <li><a href="#">Banner Advertising</a></li>
+                                    <li><a href="#">Promote Your Ad</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="footer-box-layout1">
+                            <div class="footer-title">
+                                <h3>Information</h3>
+                            </div>
+                            <div class="footer-menu-box">
+                                <ul>
+                                    <li><a href="#">Company & Contact Info</a></li>
+                                    <li><a href="#">Blog & Articles</a></li>
+                                    <li><a href="#">Sitemap</a></li>
+                                    <li><a href="#">Terms of Service</a></li>
+                                    <li><a href="#">Privacy Policy</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="footer-box-layout1">
+                            <div class="footer-title">
+                                <h3>Help & Support</h3>
+                            </div>
+                            <div class="footer-menu-box">
+                                <ul>
+                                    <li><a href="#">Live Chat</a></li>
+                                    <li><a href="#">FAQ</a></li>
+                                    <li><a href="#">How to Stay Safe</a></li>
+                                    <li><a href="#">Terms & Conditions</a></li>
+                                    <li><a href="#">Contact Us</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom-wrap">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="copyright-text">
+                            Copyright &copy; 2023.Company name All rights reserved.
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="payment-option">
+                            <a href="#">
+                                <img src="media/figure/payment.png" alt="payment">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</footer>
+
+<th:block th:fragment="script">
+    <!-- Jquery Js -->
+    <script th:src="@{/dependencies/jquery/js/jquery.min.js}"></script>
+    <!-- Popper Js -->
+    <script th:src="@{/dependencies/popper.js/js/popper.min.js}"></script>
+    <!-- Bootstrap Js -->
+    <script th:src="@{/dependencies/bootstrap/js/bootstrap.min.js}"></script>
+    <!-- Waypoints Js -->
+    <script th:src="@{/dependencies/waypoints/js/jquery.waypoints.min.js}"></script>
+    <!-- Counterup Js -->
+    <script th:src="@{/dependencies/jquery.counterup/js/jquery.counterup.min.js}"></script>
+    <!-- Owl Carousel Js -->
+    <script th:src="@{/dependencies/owl.carousel/js/owl.carousel.min.js}"></script>
+    <!-- ImagesLoaded Js -->
+    <script th:src="@{/dependencies/imagesloaded/js/imagesloaded.pkgd.min.js}"></script>
+    <!-- Isotope Js -->
+    <script th:src="@{/dependencies/isotope-layout/js/isotope.pkgd.min.js}"></script>
+    <!-- Animated Headline Js -->
+    <script th:src="@{/dependencies/jquery-animated-headlines/js/jquery.animatedheadline.min.js}"></script>
+    <!-- Magnific Popup Js -->
+    <script th:src="@{/dependencies/magnific-popup/js/jquery.magnific-popup.min.js}"></script>
+    <!-- ElevateZoom Js -->
+    <script th:src="@{/dependencies/elevatezoom/js/jquery.elevateZoom-2.2.3.min.js}"></script>
+    <!-- Bootstrap Validate Js -->
+    <script th:src="@{/dependencies/bootstrap-validator/js/validator.min.js}"></script>
+    <!-- Meanmenu Js -->
+    <script th:src="@{/dependencies/meanmenu/js/jquery.meanmenu.min.js}"></script>
+    <!-- Google Map js -->
+    <script src="https://ditu.google.cn/maps/api/js?key=AIzaSyBtmXSwv4YmAKtcZyyad9W7D4AC08z0Rb4"></script>
+    <!-- Site Scripts -->
+    <script th:src="@{/assets/js/app.js}"></script>
+</th:block>
+
+</body>
+</html>

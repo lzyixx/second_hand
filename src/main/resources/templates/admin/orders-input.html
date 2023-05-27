@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="admin/_fragments :: head(~{::title})">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Change order</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css">
+    <link rel="stylesheet" href="../../static/lib/editormd/css/editormd.min.css">
+    <link rel="stylesheet" href="../../static/css/me.css">
+</head>
+<body>
+
+<!--导航-->
+<nav th:replace="admin/_fragments :: menu(3)" class="ui inverted attached segment m-padded-tb-mini m-shadow-small">
+</nav>
+
+<div class="m-container-small m-padded-tb-big">
+    <div class="ui container">
+        <form class="ui form" id="user-form" th:object="${order}" th:action="@{/admin/orders}" method="post">
+          <input type="hidden" name="id" th:value="*{id}">
+            <h4 class="ui dividing header">Order information</h4>
+            <div class="field">
+                <label>Order number</label>
+                <div class="field">
+                  <input type="text" placeholder="名称" th:value="*{id}" readonly>
+                </div>
+            </div>
+            <div class="required field">
+                <label>Logistics</label>
+                <div class="field">
+                    <input type="text" name="deliveryCompany" placeholder="Logistics" th:value="*{deliveryCompany}">
+                </div>
+            </div>
+            <div class="required field">
+                <label>Tracking numbe</label>
+                <div class="field">
+                    <input type="text" name="deliverySn" placeholder="Tracking number" th:value="*{deliverySn}">
+                </div>
+            </div>
+            <div class="required field">
+                <label>Receiver name</label>
+                <div class="field">
+                    <input type="text" name="receiverName" placeholder="Receiver name" th:value="*{receiverName}">
+                </div>
+            </div>
+            <div class="required field">
+                <label>Phone number</label>
+                <div class="field">
+                    <input type="text" name="receiverPhone" placeholder="Phone number" th:value="*{receiverPhone}">
+                </div>
+            </div>
+            <div class="required field">
+                <label>Address</label>
+                <div class="field">
+                    <input type="text" name="receiverAddress" placeholder="Address" th:value="*{receiverAddress}">
+                </div>
+            </div>
+            <div class="field">
+                <label>Comment</label>
+                <div class="field">
+                    <textarea name="note" placeholder="Comment" th:text="*{note}"></textarea>
+                </div>
+            </div>
+
+          <div class="ui submit button" id="save-btn">Submit</div>
+        </form>
+    </div>
+</div>
+<br>
+<br>
+<!--底部footer-->
+<footer th:replace="admin/_fragments :: footer" class="ui inverted vertical segment m-padded-tb-massive">
+</footer>
+
+<!--/*/<th:block th:replace="admin/_fragments :: script">/*/-->
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>
+<!--/*/</th:block>/*/-->
+
+
+<script>
+
+    $('.menu.toggle').click(function () {
+        $('.m-item').toggleClass('m-mobile-hide');
+    });
+
+    $('.ui.dropdown').dropdown({
+        on: 'hover'
+    });
+
+    $('#save-btn').click(function () {
+        $('[name="published"]').val(false);
+        $('#user-form').submit();
+    });
+
+
+    $('.ui.form').form({
+        fields: {
+            deliveryCompany: {
+                identifier: 'deliveryCompany',
+                rules: [{
+                    type: 'empty',
+                    prompt: '标题：请输入物流公司'
+                }]
+            },
+            deliverySn: {
+                identifier: 'deliverySn',
+                rules: [{
+                    type: 'empty',
+                    prompt: '标题：请输入物流单号'
+                }]
+            },
+            receiverName: {
+                identifier: 'receiverName',
+                rules: [{
+                    type: 'empty',
+                    prompt: '标题：请输入收货人姓名'
+                }]
+            },
+            receiverPhone: {
+                identifier: 'receiverPhone',
+                rules: [{
+                    type: 'empty',
+                    prompt: '标题：请输入收货人电话'
+                }]
+            },
+            receiverAddress: {
+                identifier: 'receiverAddress',
+                rules: [{
+                    type: 'empty',
+                    prompt: '标题：请输入收货人地址'
+                }]
+            }
+        }
+    });
+
+</script>
+</body>
+</html>

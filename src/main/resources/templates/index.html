@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="_fragments :: head(~{::title})">
+    <!-- Meta Data -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Home</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+</head>
+
+<body class="sticky-header">
+    <!--[if lte IE 9]>
+    <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+  	<![endif]-->
+    <!-- ScrollUp Start Here -->
+    <a href="#wrapper" data-type="section-switch" class="scrollup">
+        <i class="fas fa-angle-double-up"></i>
+    </a>
+    <!-- ScrollUp End Here -->
+    <!-- Preloader Start Here -->
+    <div id="preloader"></div>
+    <!-- Preloader End Here -->
+    <div id="wrapper" class="wrapper">
+
+        <!--=====================================-->
+        <!--=            Header Start           =-->
+        <!--=====================================-->
+        <nav th:replace="_fragments :: menu(0)"></nav>
+        <!--=====================================-->
+        <!--=            Banner Start           =-->
+        <!--=====================================-->
+        <section class="main-banner-wrap-layout1 bg-dark-overlay bg-common minus-mgt-90" data-bg-image="media/banner/banner1.jpg">
+            <div class="container">
+                <div class="main-banner-box-layout1 ">
+                    <h1 class="ah-headline item-title">
+                        <span class="ah-words-wrapper">
+                            <b class="is-visible">Reuse, Recycle and Rejoice</b>
+                        </span>
+                    </h1>
+                    <div class="item-subtitle">Search from over 2000+ Active Products in 29+ Categories for Free</div>
+                    <div class="search-box-layout1">
+                        <form th:action="@{/listProducts}" method="get">
+                            <div class="row no-gutters">
+                                <div class="col-lg-10 form-group">
+                                    <div class="input-search-btn search-keyword">
+                                        <i class="fas fa-text-width"></i>
+                                        <input type="text" class="form-control" placeholder="Enter Keyword here ..." name="keyword">
+                                    </div>
+                                </div>
+                                <div class="col-lg-2 form-group">
+                                    <button type="submit" class="submit-btn"><i class="fas fa-search"></i>Search</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--=====================================-->
+        <!--=            Category Start           =-->
+        <!--=====================================-->
+        <section class="section-padding-top-heading">
+            <div class="container">
+                <div class="heading-layout1">
+                    <h2 class="heading-title">Popular Categories</h2>
+                </div>
+                <div class="row">
+                    <div class="col-lg-3 col-md-4 col-sm-6" th:each="type:${typeList}">
+                        <div class="category-box-layout1">
+                            <a th:href="@{/listProducts?typeId={typeId}(typeId=${type.id})}">
+                                <div class="item-content">
+                                    <h3 class="item-title" th:text="${type.name}"></h3>
+                                    <div class="item-count" th:text="${type.productNum}+'Product'"></div>
+                                </div>
+                            </a>
+                        </div>
+                    </div >
+                </div>
+            </div>
+        </section>
+        <!--=====================================-->
+        <!--=       Footer Start           	=-->
+        <!--=====================================-->
+        <footer th:replace="_fragments:: footer"></footer>
+    </div>
+    <th:block th:replace="_fragments :: script">
+    </th:block>
+</body>
+
+</html>

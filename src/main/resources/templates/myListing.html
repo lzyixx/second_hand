@@ -1,0 +1,258 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head th:replace="_fragments :: head(~{::title})">
+    <!-- Meta Data -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>My Account</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+</head>
+
+<body class="sticky-header bg-accent">
+    <!--[if lte IE 9]>
+    <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+  	<![endif]-->
+    <!-- ScrollUp Start Here -->
+    <a href="#wrapper" data-type="section-switch" class="scrollup">
+        <i class="fas fa-angle-double-up"></i>
+    </a>
+    <!-- ScrollUp End Here -->
+    <!-- Preloader Start Here -->
+    <div id="preloader"></div>
+    <!-- Preloader End Here -->
+    <div id="wrapper" class="wrapper">
+
+        <!--=====================================-->
+        <!--=            Header Start           =-->
+        <!--=====================================-->
+        <nav th:replace="_fragments :: menu(0)"></nav>
+        <!--=====================================-->
+        <!--=        Account Page Start      	=-->
+        <!--=====================================-->
+        <section class="section-padding-equal-70">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="tab-content">
+                            <div>
+                                <div class="myaccount-listing">
+                                    <div class="list-view-layout1" th:each="product:${productList}">
+                                        <div class="product-box-layout3">
+                                            <div class="item-img">
+                                                <a th:href="@{/productDetail?id={id}(id=${product.id})}"><img th:src="${product.pic}" alt="Product"></a>
+                                            </div>
+                                            <div class="product-info">
+                                                <div class="item-content">
+                                                    <h3 class="item-title"><a th:href="@{/productDetail?id={id}(id=${product.id})}" th:text="${product.name}">Galaxy Note</a></h3>
+                                                    <ul class="entry-meta">
+                                                        <li><i class="far fa-clock"></i><span th:text="${#dates.format(product.createTime,'yyyy-MM-dd')}"></span></li>
+                                                    </ul>
+                                                    <div class="btn-group">
+                                                        <a th:href="@{/products/{id}(id=${product.id})}">Edit</a>
+                                                        <a th:href="@{/products/delete/{id}(id=${product.id})}">Delete</a>
+                                                    </div>
+                                                </div>
+                                                <div class="item-right">
+                                                    <div class="item-price">
+                                                        <span class="currency-symbol" th:text="'$ '+${product.price}"></span>
+                                                    </div>
+                                                    <div class="item-btn">
+                                                        <a th:href="@{/productDetail?id={id}(id=${product.id})}">Details</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="pagination-layout1">
+                                    <div class="btn-prev">
+                                        <a th:if="${page>1}" th:href="@{/myListing?page={page}&keyword={keyword}(page=${page-1},keyword=${keyword})}"><i class="fas fa-angle-double-left"></i>Previous</a>
+                                    </div>
+                                    <div class="page-number">
+                                        <a th:each="i:${#numbers.sequence(1,pages)}" th:href="@{/myListing?page={page}&keyword={keyword}(page=${i},keyword=${keyword})}" th:class="${page==i?'active':''}" th:text="${i}"></a>
+                                    </div>
+                                    <div class="btn-next">
+                                        <a th:if="${page<pages}" th:href="@{/myListing?page={page}&keyword={keyword}(page=${page+1},keyword=${keyword})}">Next<i class="fas fa-angle-double-right"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="payment" role="tabpanel">
+                                <div class="myaccount-payment light-shadow-bg">
+                                    <div class="light-box-content">
+                                        <div class="table-responsive">
+                                            <table class="table table-bordered table-striped">
+                                                <thead>
+                                                <tr>
+                                                    <th>Payment ID</th>
+                                                    <th>Amount</th>
+                                                    <th>Type</th>
+                                                    <th>Status</th>
+                                                    <th>Date</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr>
+                                                    <td><a href="#">2125</a></td>
+                                                    <td>
+                                                        <div class="price-amount">
+                                                            10
+                                                            <span class="currency-symbol">$</span>
+                                                        </div>
+                                                    </td>
+                                                    <td>Direct Bank Transfer</td>
+                                                    <td>Pending</td>
+                                                    <td>December 14, 2019 @ 6:49 am</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><a href="#">2126</a></td>
+                                                    <td>
+                                                        <div class="price-amount">
+                                                            10
+                                                            <span class="currency-symbol">$</span>
+                                                        </div>
+                                                    </td>
+                                                    <td>Direct Bank Transfer</td>
+                                                    <td>Pending</td>
+                                                    <td>December 14, 2019 @ 6:49 am</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><a href="#">2127</a></td>
+                                                    <td>
+                                                        <div class="price-amount">
+                                                            10
+                                                            <span class="currency-symbol">$</span>
+                                                        </div>
+                                                    </td>
+                                                    <td>Direct Bank Transfer</td>
+                                                    <td>Pending</td>
+                                                    <td>December 14, 2019 @ 6:49 am</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><a href="#">2128</a></td>
+                                                    <td>
+                                                        <div class="price-amount">
+                                                            10
+                                                            <span class="currency-symbol">$</span>
+                                                        </div>
+                                                    </td>
+                                                    <td>Direct Bank Transfer</td>
+                                                    <td>Pending</td>
+                                                    <td>December 14, 2019 @ 6:49 am</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><a href="#">2129</a></td>
+                                                    <td>
+                                                        <div class="price-amount">
+                                                            10
+                                                            <span class="currency-symbol">$</span>
+                                                        </div>
+                                                    </td>
+                                                    <td>Direct Bank Transfer</td>
+                                                    <td>Pending</td>
+                                                    <td>December 14, 2019 @ 6:49 am</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><a href="#">2130</a></td>
+                                                    <td>
+                                                        <div class="price-amount">
+                                                            10
+                                                            <span class="currency-symbol">$</span>
+                                                        </div>
+                                                    </td>
+                                                    <td>Direct Bank Transfer</td>
+                                                    <td>Pending</td>
+                                                    <td>December 14, 2019 @ 6:49 am</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><a href="#">2131</a></td>
+                                                    <td>
+                                                        <div class="price-amount">
+                                                            10
+                                                            <span class="currency-symbol">$</span>
+                                                        </div>
+                                                    </td>
+                                                    <td>Direct Bank Transfer</td>
+                                                    <td>Pending</td>
+                                                    <td>December 14, 2019 @ 6:49 am</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><a href="#">2132</a></td>
+                                                    <td>
+                                                        <div class="price-amount">
+                                                            10
+                                                            <span class="currency-symbol">$</span>
+                                                        </div>
+                                                    </td>
+                                                    <td>Direct Bank Transfer</td>
+                                                    <td>Pending</td>
+                                                    <td>December 14, 2019 @ 6:49 am</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><a href="#">2133</a></td>
+                                                    <td>
+                                                        <div class="price-amount">
+                                                            10
+                                                            <span class="currency-symbol">$</span>
+                                                        </div>
+                                                    </td>
+                                                    <td>Direct Bank Transfer</td>
+                                                    <td>Pending</td>
+                                                    <td>December 14, 2019 @ 6:49 am</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><a href="#">2134</a></td>
+                                                    <td>
+                                                        <div class="price-amount">
+                                                            10
+                                                            <span class="currency-symbol">$</span>
+                                                        </div>
+                                                    </td>
+                                                    <td>Direct Bank Transfer</td>
+                                                    <td>Pending</td>
+                                                    <td>December 14, 2019 @ 6:49 am</td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="pagination-layout1">
+                                    <div class="btn-prev disabled">
+                                        <a href="#"><i class="fas fa-angle-double-left"></i>Previous</a>
+                                    </div>
+                                    <div class="page-number">
+                                        <a href="#" class="active">1</a>
+                                        <a href="#">2</a>
+                                    </div>
+                                    <div class="btn-next">
+                                        <a href="#">Next<i class="fas fa-angle-double-right"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--=====================================-->
+        <!--=       Footer Start           	=-->
+        <!--=====================================-->
+        <footer th:replace="_fragments:: footer"></footer>
+    </div>
+    <th:block th:replace="_fragments :: script">
+    </th:block>
+
+</body>
+<script>
+    let msg="[[${message}]]"
+    $(function () {
+        if(msg!=null&&msg!=''){
+            alert(msg)
+        }
+    })
+</script>
+</html>

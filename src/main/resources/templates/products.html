@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head th:replace="_fragments :: head(~{::title})">
+    <!-- Meta Data -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>List View 1</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+</head>
+
+<body class="sticky-header">
+<!--[if lte IE 9]>
+<p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade
+    your browser</a> to improve your experience and security.</p>
+<![endif]-->
+<!-- ScrollUp Start Here -->
+<a href="#wrapper" data-type="section-switch" class="scrollup">
+    <i class="fas fa-angle-double-up"></i>
+</a>
+<!-- ScrollUp End Here -->
+<!-- Preloader Start Here -->
+<div id="preloader"></div>
+<!-- Preloader End Here -->
+<div id="wrapper" class="wrapper">
+    <nav th:replace="_fragments :: menu(0)"></nav>
+    <!--=====================================-->
+    <!--=          Product Start         =-->
+    <!--=====================================-->
+    <section class="product-inner-wrap-layout1 bg-accent">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-3 col-lg-4 sidebar-break-md sidebar-widget-area" id="accordion">
+                    <div class="widget-bottom-margin-md widget-accordian widget-filter">
+                        <h3 class="widget-bg-title">Filter</h3>
+                        <form th:action="@{/listProducts}" method="get">
+                            <div class="accordion-box">
+                                <div class="card filter-price-range filter-item-list">
+                                    <div class="card-header">
+                                        <a class="parent-list" role="button" data-toggle="collapse" href="#collapseFour" aria-expanded="true">
+                                            Price Range
+                                        </a>
+                                    </div>
+                                    <div id="collapseFour" class="collapse show" data-parent="#accordion">
+                                        <div class="card-body">
+                                            <div class="price-range-content">
+                                                <div class="row">
+                                                    <div class="col-lg-6 form-group">
+                                                        <input type="number" name="minPrice" class="form-control" placeholder="min">
+                                                    </div>
+                                                    <div class="col-lg-6 form-group">
+                                                        <input type="number" name="maxPrice" class="form-control" placeholder="max">
+                                                    </div>
+                                                    <div class="col-12 form-group">
+                                                        <button type="submit" class="filter-btn">Apply Filters</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-xl-9 col-lg-8">
+                    <div class="product-filter-heading">
+                        <div class="row align-items-center">
+                            <div class="col-md-6">
+                                <h2 class="item-title" th:text="${total}+' results'"></h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="product-view" class="product-box-grid">
+                        <div class="row">
+                            <div class="col-xl-4 col-md-6" th:each="product:${productList}">
+                                <div class="product-grid-view">
+                                    <div class="grid-view-layout1">
+                                        <div class="product-box-layout1 top-rated-grid">
+                                            <div class="item-img">
+                                                <a th:href="@{/productDetail?id={id}(id=${product.id})}"
+                                                   class="item-trending"><img th:src="${product.pic}" alt="Product"
+                                                                              style="height: 300px;"></a>
+                                            </div>
+                                            <div class="item-content">
+                                                <h3 class="item-title"><a
+                                                        th:href="@{/productDetail?id={id}(id=${product.id})}"
+                                                        th:text="${product.name}">Galaxy Note</a></h3>
+                                                <ul class="entry-meta">
+                                                    <li><i class="far fa-clock"></i><span
+                                                            th:text="${#dates.format(product.createTime,'yyyy-MM-dd')}"></span>
+                                                    </li>
+                                                </ul>
+                                                <div class="item-price">
+                                                    <span class="currency-symbol"
+                                                          th:text="'$ '+${product.price}"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pagination-layout1">
+                        <div class="btn-prev">
+                            <a th:if="${page>1}"
+                               th:href="@{/listProducts?page={page}&keyword={keyword}(page=${page-1},keyword=${keyword})}"><i
+                                    class="fas fa-angle-double-left"></i>Previous</a>
+                        </div>
+                        <div class="page-number">
+                            <a th:each="i:${#numbers.sequence(1,pages)}"
+                               th:href="@{/listProducts?page={page}&keyword={keyword}(page=${i},keyword=${keyword})}"
+                               th:class="${page==i?'active':''}" th:text="${i}"></a>
+                        </div>
+                        <div class="btn-next">
+                            <a th:if="${page<pages}"
+                               th:href="@{/listProducts?page={page}&keyword={keyword}(page=${page+1},keyword=${keyword})}">Next<i
+                                    class="fas fa-angle-double-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer th:replace="_fragments:: footer"></footer>
+</div>
+<th:block th:replace="_fragments :: script">
+</th:block>
+</body>
+<script>
+    let msg = "[[${message}]]"
+    $(function () {
+        if (msg != null && msg != '') {
+            alert(msg)
+        }
+    })
+</script>
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="admin/_fragments :: head(~{::title})">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product number</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css">
+  <link rel="stylesheet" href="../../static/css/me.css">
+</head>
+<body>
+
+  <!--导航-->
+  <nav th:replace="admin/_fragments :: menu(3)" class="ui inverted attached segment m-padded-tb-mini m-shadow-small" >
+  </nav>
+
+  <div  class="m-container-small m-padded-tb-big">
+    <div class="ui container">
+      <div id="table-container">
+        <table th:fragment="productList" class="ui compact teal table">
+          <thead>
+          <tr>
+            <th></th>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Price</th>
+            <th>Create date</th>
+            <th>User id</th>
+            <th>Operate</th>
+            <th><a href="#" th:href="@{/admin/products/input}" class="ui mini right floated teal basic button">Add</a></th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr th:each="product,iterStat : ${productList}">
+            <td th:text="${iterStat.count}">1</td>
+            <td th:text="${product.name}"></td>
+            <td th:text="${product.typeName}"></td>
+            <td th:text="${product.price}"></td>
+            <td th:text="${#dates.format(product.createTime,'yyyy-MM-dd')}">2017-10-02 09:45</td>
+            <td th:text="${product.userId}"></td>
+            <td>
+              <a href="#" th:href="@{/admin/products/{id}(id=${product.id})}" class="ui mini teal basic button">Edit</a>
+              <a href="#" th:href="@{/admin/products/delete/{id}(id=${product.id})}" class="ui mini red basic button">Delete</a>
+            </td>
+          </tr>
+          </tbody>
+          <tfoot>
+          <tr>
+            <td colspan="6" align="center">
+              <div class="meneame" id="Pagination"></div>
+            </td>
+          </tr>
+          </tfoot>
+        </table>
+
+        <div class="ui success message" th:unless="${#strings.isEmpty(message)}">
+          <i class="close icon"></i>
+          <div class="header">Noted：</div>
+          <p th:text="${message}">Success</p>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <br>
+  <br>
+  <!--底部footer-->
+  <footer th:replace="admin/_fragments :: footer" class="ui inverted vertical segment m-padded-tb-massive">
+  </footer>
+  <th:block th:replace="admin/_fragments :: script"></th:block>
+  <script>
+    $('.menu.toggle').click(function () {
+      $('.m-item').toggleClass('m-mobile-hide');
+    });
+
+    $('.ui.dropdown').dropdown({
+      on : 'hover'
+    });
+
+    //消息提示关闭初始化
+    $('.message .close')
+      .on('click', function () {
+        $(this)
+          .closest('.message')
+          .transition('fade');
+      });
+
+    $(function () {
+      initPagination();
+    });
+
+    function initPagination(){
+      var totalpage = "[[${total}]]";
+      totalpage = parseInt(totalpage);
+      var currentPage ="[[${page}]]";
+      currentPage=parseInt(currentPage)-1;
+      var paginationProperties = {
+        num_edge_entries: 1,    //边缘页数
+        num_display_entries: 4,   //主题页数
+        callback:pageselectCallback,  //回调函数
+        items_per_page:5,              //每页显示条数
+        current_page: currentPage,
+        prev_text: "Last",
+        next_text: "Next"
+      };
+      //显示分页导航条
+      $("#Pagination").pagination(totalpage,paginationProperties)
+    }
+
+    function pageselectCallback(pageIndex,jq){
+      var currentPage = parseInt(pageIndex)+1;
+      window.location.href="/admin/products?page="+currentPage+"&pageSize="+5;
+      return false;
+    }
+
+  </script>
+</body>
+</html>

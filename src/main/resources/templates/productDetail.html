@@ -1,0 +1,338 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head th:replace="_fragments :: head(~{::title})">
+    <!-- Meta Data -->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Product Details 2</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+</head>
+<!--<link rel="stylesheet" th:href="@{/layui/css/layui.css}">-->
+<style>
+    .buy-btn{
+        margin-top: 10px;
+        display: block;
+        border-radius: 0.125rem;
+        background-color: #f85c70;
+        padding: 0.625rem 1.25rem;
+        color: #ffffff;
+        font-weight: 500;
+        -webkit-transition: all 0.3s ease-in-out;
+        transition: all 0.3s ease-in-out;
+        text-align: center;
+    }
+</style>
+<body class="sticky-header">
+    <!--[if lte IE 9]>
+    <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience and security.</p>
+  	<![endif]-->
+    <!-- ScrollUp Start Here -->
+    <a href="#wrapper" data-type="section-switch" class="scrollup">
+        <i class="fas fa-angle-double-up"></i>
+    </a>
+    <!-- ScrollUp End Here -->
+    <!-- Preloader Start Here -->
+    <div id="preloader"></div>
+    <!-- Preloader End Here -->
+    <div id="wrapper" class="wrapper">
+
+        <!--=====================================-->
+        <!--=            Header Start           =-->
+        <!--=====================================-->
+        <nav th:replace="_fragments :: menu(0)"></nav>
+        <!--=====================================-->
+        <!--=          Product Start         =-->
+        <!--=====================================-->
+        <section class="single-product-wrap-layout2 section-padding-equal-70 bg-accent">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xl-9 col-lg-8">
+                        <div class="single-product-box-layout1">
+                            <div class="product-info light-shadow-bg">
+                                <div class="product-content light-box-content">
+                                    <div class="item-img-gallery">
+                                        <div class="tab-content">
+                                            <div class="tab-pane fade show active" id="gallery1" role="tabpanel">
+                                                    <img style="width: 100%" class="zoom_01" th:src="${product.pic}" alt="product" th:data-zoom-image="${product.pic}">
+                                            </div>
+                                        </div>
+<!--                                        <ul class="nav nav-tabs" role="tablist">-->
+<!--                                            <li class="nav-item">-->
+<!--                                                <a class="nav-link active" data-toggle="tab" href="#gallery1" role="tab" aria-selected="true">-->
+<!--                                                    <img th:src="${product.pic}" alt="thumbnail">-->
+<!--                                                </a>-->
+<!--                                            </li>-->
+<!--                                        </ul>-->
+                                    </div>
+                                    <div class="single-entry-meta">
+                                        <ul>
+                                            <li><i class="far fa-clock"></i><span th:text="${#dates.format(product.createTime,'yyyy-MM-dd')}"></span></li>
+                                        </ul>
+                                    </div>
+                                    <div class="item-price">
+                                        <span class="currency-symbol" th:text="'$ '+${product.price}"></span>
+                                    </div>
+                                    <div class="item-details-2">
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <div class="left-side-content">
+                                                    <p th:text="${product.description}">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. In eu mi bibendum neque egestas congue quisque. At urna condimentum mattis pellentesque id nibh tortor. Aliquam eleifend mi in nulla posuere. Sed sed risus pretium quam vulputate. Sit amet dictum sit amet justo donec enim diam vulputate. Condimentum lacinia quis vel eros donec ac odio. Amet mauris commodo quis imperdiet massa tincidunt nunc pulvinar sapien. Id interdum velit laoreet id. Enim diam vulputate ut pharetra sit. Dictum sit amet justo donec enim diam vulputate. Vestibulum mattis ullamcorper velit sed ullamcorper morbi tincidunt ornare massa.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item-review light-shadow-bg">
+                            <div class="light-box-content">
+                                <!--留言区域列表-->
+                                <div id="comment-container">
+                                    <div th:fragment="commentList">
+                                        <div class="ui threaded comments" style="max-width: 100%;">
+                                            <h3 class="ui dividing header">Comment List</h3>
+                                            <div class="comment" th:each="comment : ${comments}">
+                                                <a class="avatar">
+                                                    <img src="https://unsplash.it/100/100?image=1005" th:src="@{${comment.user.hpic}}">
+                                                </a>
+                                                <div class="content">
+                                                    <a class="author" >
+                                                        <span th:text="${comment.user.username}">Matt</span>
+                                                        <div class="ui mini basic teal left pointing label m-padded-mini" th:if="${comment.adminComment}">seller</div>
+                                                    </a>
+                                                    <div class="metadata">
+                                                        <span class="date" th:text="${#dates.format(comment.createTime,'yyyy-MM-dd HH:mm')}">Today at 5:42PM</span>
+                                                    </div>
+                                                    <div class="text" th:text="${comment.content}">
+                                                    </div>
+                                                    <div class="actions">
+                                                        <a class="reply" data-commentid="1" data-commentnickname="Matt" th:attr="data-foreparentid=${comment.id},data-commentid=${comment.id},data-commentusername=${comment.user.username}" onclick="reply(this)">Reply</a>
+                                                        <a th:if="${session.user!=null&&session.user.id==comment.userId}" th:onclick="delComment([[${comment.id}]])">Delete</a>
+                                                    </div>
+                                                </div>
+                                                <div class="comments" th:if="${#arrays.length(comment.replyComments)}>0">
+                                                    <div class="comment" th:each="reply : ${comment.replyComments}">
+                                                        <a class="avatar">
+                                                            <img src="https://unsplash.it/100/100?image=1005" th:src="@{${reply.user.hpic}}">
+                                                        </a>
+                                                        <div class="content">
+                                                            <a class="author" >
+                                                                <span th:text="${reply.user.username}"></span>
+                                                                <div class="ui mini basic teal left pointing label m-padded-mini" th:if="${reply.adminComment}">seller</div>
+                                                                &nbsp;<span th:text="|@ ${reply.parentComment.user.username}|" class="m-teal"></span>
+                                                            </a>
+                                                            <div class="metadata">
+                                                                <span class="date" th:text="${#dates.format(reply.createTime,'yyyy-MM-dd HH:mm')}">Today at 5:42PM</span>
+                                                            </div>
+                                                            <div class="text" th:text="${reply.content}">
+                                                                How artistic!
+                                                            </div>
+                                                            <div class="actions">
+                                                                <a class="reply" data-commentid="1" data-commentnickname="Matt" th:attr="data-foreparentid=${comment.id},data-commentid=${reply.id},data-commentusername=${reply.user.username}" onclick="reply(this)">Reply</a>
+                                                                <a th:if="${session.user.id==reply.userId}" th:onclick="delComment([[${reply.id}]])">Delete</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="comment-form" class="ui form">
+                                    <input type="hidden" name="parentCommentId" value="-1">
+                                    <input type="hidden" name="foreparentId" value="-1">
+                                    <div class="field">
+                                        <textarea name="content" placeholder="Comment Here..."></textarea>
+                                    </div>
+                                    <div class="fields">
+                                        <div class="field  m-margin-bottom-small m-mobile-wide">
+                                            <button id="commentpost-btn" type="button" class="ui teal button m-mobile-wide"><i class="edit icon"></i>Submit</button>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xl-3 col-lg-4 sidebar-break-md sidebar-widget-area">
+                        <div class="widget-lg widget-author-info widget-light-bg">
+                            <h3 class="widget-border-title">Seller Information</h3>
+                            <div class="author-content">
+                                <div class="author-name">
+                                    <div class="item-img">
+                                        <img width="50px" height="50px" th:src="${product.user!=null?product.user.hpic:'media/figure/author.jpg'}" alt="author">
+                                    </div>
+                                    <h4 class="author-title"><a href="#" th:text="${product.user!=null?product.user.nickname:''}">RadiusTheme</a></h4>
+                                </div>
+                                <div class="author-meta">
+                                    <ul>
+                                        <li><i class="fas fa-shopping-basket"></i><a th:href="@{/listProducts?userId={userId}(userId=${product.userId})}">View Store</a></li>
+                                    </ul>
+                                </div>
+                                <div class="author-mail">
+                                    <a onclick="goBottom()" class="mail-btn">
+                                        <i class="fas fa-envelope"></i>Contact the seller
+                                    </a>
+                                </div>
+                                <div th:if="${canBuy!=0}">
+                                    <a href="#" class="buy-btn" data-toggle="modal" data-target="#pay">Buy it</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!--=====================================-->
+        <!--=       Footer Start           	=-->
+        <!--=====================================-->
+        <footer th:replace="_fragments:: footer"></footer>
+        <!--=====================================-->
+        <!--=       Modal Start           	 	=-->
+        <!--=====================================-->
+        <!-- Author Mail Box -->
+        <div class="modal fade author-mail-box" id="pay" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="#">
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="payPai" placeholder="payPai*">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="receiverName" placeholder="receiverName*">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="receiverPhone" placeholder="receiverPhone*">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control" name="receiverAddress" placeholder="receiverAddress*">
+                            </div>
+                            <div class="form-group">
+                                <button type="button" onclick="pay()">
+                                    Pay
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <th:block th:replace="_fragments :: script">
+    </th:block>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/jquery.scrollto@2.1.2/jquery.scrollTo.min.js"></script>
+    <script th:src="@{/layui/layui.js}" charset="utf-8"></script>
+    <script th:src="@{/lib/tocbot/tocbot.min.js}"></script>
+    <script src="../static/lib/qrcode/qrcode.min.js" th:src="@{/lib/qrcode/qrcode.min.js}"></script>
+    <script src="../static/lib/waypoints/jquery.waypoints.min.js" th:src="@{/lib/waypoints/jquery.waypoints.min.js}"></script>
+
+</body>
+<script>
+    layui.use('layer', function(){
+        var layer = layui.layer;
+    });
+
+
+    let pId="[[${product.id}]]"
+    function pay() {
+        let payPai=$("input[name=payPai]").val();
+        let receiverName=$("input[name=receiverName]").val();
+        let receiverPhone=$("input[name=receiverPhone]").val();
+        let receiverAddress=$("input[name=receiverAddress]").val();
+        if(payPai==''||receiverName==''||receiverPhone==''||receiverAddress==''){
+            alert("Please fill in your information completely!")
+            return;
+        }else{
+            $.post("/payOrder", {pId:pId,receiverName: receiverName,receiverPhone:receiverPhone,receiverAddress:receiverAddress}, function (result) {
+                if(result=='error'){
+                    alert("pay failed!");
+                }else{
+                    alert("pay successfully!");
+                    window.location.href = "/";
+                }
+            });
+        }
+    }
+
+    function goBottom() {
+        window.scrollTo(0, document.documentElement.scrollHeight - document.documentElement.clientHeight-350);
+    }
+
+    $(function () {
+        let id="[[${product.id}]]"
+        $("#comment-container").load("/comments?productId="+id);
+    });
+
+
+
+    $('#commentpost-btn').click(function () {
+        var boo = $('.ui.form').form('validate form');
+        if (boo) {
+            console.log('校验成功');
+            postData();
+        } else {
+            console.log('校验失败');
+        }
+
+    });
+
+    function postData() {
+        $.post("/comments",
+            {
+                "parentCommentId": $("[name='parentCommentId']").val(),
+                "foreparentId": $("[name='foreparentId']").val(),
+                "userId": $("[name='username']").val(),
+                "content": $("[name='content']").val(),
+                "productId": "[[${product.id}]]"
+            },
+            function (result) {
+            if(result=='error'){
+                alert("login first！")
+                clearContent();
+            }else {
+                alert(result);
+                location.reload(true);
+            }
+        });
+    }
+
+    function clearContent() {
+        $("[name='content']").val('');
+        $("[name='parentCommentId']").val(-1);
+        $("[name='foreparentId']").val(-1);
+        $("[name='content']").attr("placeholder", "请输入评论信息...");
+    }
+
+
+    function reply(obj) {
+        var foreparentid = $(obj).data('foreparentid');
+        var commentId = $(obj).data('commentid');
+        var commentUsername = $(obj).data('commentusername');
+        $("[name='content']").attr("placeholder", "@"+commentUsername).focus();
+        $("[name='parentCommentId']").val(commentId);
+        $("[name='foreparentId']").val(foreparentid);
+        $(window).scrollTo($('#comment-form'),500);
+    }
+
+    function delComment(id) {
+        layer.confirm('really delete?', function(){
+            $.post("/comment/delete", {"id": id}, function (result) {
+                alert(result);
+                location.reload(true);
+            });
+        });
+    }
+</script>
+</html>
